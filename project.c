@@ -2,6 +2,7 @@
 #include<windows.h>
 #include<stdlib.h>
 #include<string.h>
+#include<conio.h>
 
 void bus_company_f();
 void driver_f();
@@ -148,7 +149,7 @@ void bus_company_login()
 	system("cls");
 	struct bus_company b;
 	int i,count=0;
-	char userName[50],Pass[50],choice;
+	char userName[50],Pass[50],choice,ch;
 	FILE *ptr;
 	ptr = fopen("bus_company_login.bin","rb");
 	if(ptr==NULL)
@@ -171,7 +172,30 @@ void bus_company_login()
 	gets(userName);
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
-	gets(Pass);
+	i=0;
+	while(1)
+	{
+		if(_kbhit())
+		{
+			ch = _getch();
+			if(ch == '\r')
+			{
+				Pass[i] = '\0';
+				break;
+			}
+			else if(ch == '\b' && i>0)
+			{
+				printf("\b \b");
+                i--;
+			}
+			else if(i<100)
+			{
+				Pass[i] = ch;
+				printf("*");
+				i++;
+			}
+		}
+	}
 	rewind(ptr);
 	while(!feof(ptr))
 	{	
@@ -184,7 +208,7 @@ void bus_company_login()
 			}	
 		}	
 	}
-	printf("\t\t\t\t\t  incorrect id or password! enter again");
+	printf("\n\n\t\t\t\t\t  incorrect id or password! enter again");
 	count++;
 	if(count>=2)
 	{
@@ -228,6 +252,7 @@ void bus_company_signup()
 {
 	system("cls");
 	int i;
+	char ch;
 	struct bus_company b,temp_read;
 	FILE *ptr;
 	ptr = fopen("bus_company_login.bin","ab+");
@@ -250,8 +275,31 @@ void bus_company_signup()
 	fflush(stdin);
 	pass_reenter:
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
-	gets(b.pass);
-	if(strlen(b.pass)<8)
+	i=0;
+	while(1)
+	{
+		if(_kbhit())
+		{
+			ch = _getch();
+			if(ch == '\r')
+			{
+				b.pass[i] = '\0';
+				break;
+			}
+			else if(ch == '\b' && i>0)
+			{
+				printf("\b \b");
+                i--;
+			}
+			else if(i<100)
+			{
+				b.pass[i] = ch;
+				printf("*");
+				i++;
+			}
+		}
+	}
+	if(strlen(b.pass)<8&&strlen(b.pass)>50)
 	{
 		printf("\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again");
 		goto pass_reenter;
@@ -375,7 +423,7 @@ void change_bus_company(int n)
 	FILE *ptr;
 	struct bus_company b,*all=NULL;
 	int count=0,i;
-	char userName[50],unique_code[6],new_pass[50],new_pass2[50];
+	char userName[50],unique_code[6],new_pass[50],new_pass2[50],ch;
 	ptr = fopen("bus_company_login.bin","rb");
 	while(fread(&b,sizeof(b),1,ptr))
 	{
@@ -410,9 +458,55 @@ void change_bus_company(int n)
 				try_again:
 				fflush(stdin);
 				printf("\n\n\t\t\t\t\t\tEnter your new pass: ");
-				gets(new_pass);
+				i=0;
+				while(1)
+				{
+					if(_kbhit())
+					{
+						ch = _getch();
+						if(ch == '\r')
+						{
+							new_pass[i] = '\0';
+							break;
+						}
+						else if(ch == '\b' && i>0)
+						{
+							printf("\b \b");
+                			i--;
+						}
+						else if(i<100)
+						{
+							new_pass[i] = ch;
+							printf("*");
+							i++;
+						}
+					}
+				}
 				printf("\n\n\t\t\t\t\t   Enter your new pass again: ");
-				gets(new_pass2);
+				i=0;
+				while(1)
+				{
+					if(_kbhit())
+					{
+						ch = _getch();
+						if(ch == '\r')
+						{
+							new_pass2[i] = '\0';
+							break;
+						}
+						else if(ch == '\b' && i>0)
+						{
+							printf("\b \b");
+                			i--;
+						}
+						else if(i<100)
+						{
+							new_pass2[i] = ch;
+							printf("*");
+							i++;
+						}
+					}
+				}
 				if(strcmp(new_pass,new_pass2)==0)
 				{
 					strcpy(all[i].pass,new_pass);
@@ -495,7 +589,7 @@ void driver_login()
 	system("cls");
 	struct driver d;
 	int i,count=0;
-	char userName[50],Pass[50],choice;
+	char userName[50],Pass[50],choice,ch;
 	FILE *ptr;
 	ptr = fopen("driver_login.bin","rb");
 	if(ptr==NULL)
@@ -518,7 +612,31 @@ void driver_login()
 	gets(userName);
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
-	gets(Pass);
+	i=0;
+	while(1)
+	{
+		if(_kbhit())
+		{
+			fflush(stdin);
+			ch = _getch();
+			if(ch == '\r')
+			{
+				Pass[i] = '\0';
+				break;
+			}
+			else if(ch == '\b' && i>0)
+			{
+				printf("\b \b");
+                i--;
+			}
+			else if(i<100)
+			{
+				Pass[i] = ch;
+				printf("*");
+				i++;
+			}
+		}
+	}
 	rewind(ptr);
 	while(!feof(ptr))
 	{	
@@ -575,6 +693,7 @@ void driver_signup()
 {
 	system("cls");
 	int i;
+	char ch;
 	struct driver d,temp_read;
 	FILE *ptr;
 	ptr = fopen("driver_login.bin","ab+");
@@ -597,7 +716,30 @@ void driver_signup()
 	fflush(stdin);
 	pass_reenter:
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
-	gets(d.pass);
+	i=0;
+	while(1)
+	{
+		if(_kbhit())
+		{
+			ch = _getch();
+			if(ch == '\r')
+			{
+				d.pass[i] = '\0';
+				break;
+			}
+			else if(ch == '\b' && i>0)
+			{
+				printf("\b \b");
+                i--;
+			}
+			else if(i<100)
+			{
+				d.pass[i] = ch;
+				printf("*");
+				i++;
+			}
+		}
+	}
 	if(strlen(d.pass)<8)
 	{
 		printf("\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again");
@@ -726,7 +868,7 @@ void change_driver(int n)
 	FILE *ptr;
 	struct driver d,*all=NULL;
 	int count=0,i;
-	char userName[50],unique_code[6],new_pass[50],new_pass2[50];
+	char userName[50],unique_code[6],new_pass[50],new_pass2[50],ch;
 	ptr = fopen("driver_login.bin","rb");
 	while(fread(&d,sizeof(d),1,ptr))
 	{
@@ -761,9 +903,55 @@ void change_driver(int n)
 				try_again:
 				fflush(stdin);
 				printf("\n\n\t\t\t\t\t\tEnter your new pass: ");
-				gets(new_pass);
+				i=0;
+				while(1)
+				{
+					if(_kbhit())
+					{
+						ch = _getch();
+						if(ch == '\r')
+						{
+							new_pass[i] = '\0';
+							break;
+						}
+						else if(ch == '\b' && i>0)
+						{
+							printf("\b \b");
+                			i--;
+						}
+						else if(i<100)
+						{
+							new_pass[i] = ch;
+							printf("*");
+							i++;
+						}
+					}
+				}
 				printf("\n\n\t\t\t\t\t   Enter your new pass again: ");
-				gets(new_pass2);
+				i=0;
+				while(1)
+				{
+					if(_kbhit())
+					{
+						ch = _getch();
+						if(ch == '\r')
+						{
+							new_pass2[i] = '\0';
+							break;
+						}
+						else if(ch == '\b' && i>0)
+						{
+							printf("\b \b");
+                			i--;
+						}
+						else if(i<100)
+						{
+							new_pass2[i] = ch;
+							printf("*");
+							i++;
+						}
+					}
+				}
 				if(strcmp(new_pass,new_pass2)==0)
 				{
 					strcpy(all[i].pass,new_pass);
@@ -841,7 +1029,7 @@ void user_login()
 	system("cls");
 	struct user u;
 	int i,count=0;
-	char userName[50],Pass[50],choice;
+	char userName[50],Pass[50],choice,ch;
 	FILE *ptr;
 	ptr = fopen("user_login.bin","rb");
 	if(ptr==NULL)
@@ -864,7 +1052,30 @@ void user_login()
 	gets(userName);
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
-	gets(Pass);
+	i=0;
+	while(1)
+	{
+		if(_kbhit())
+		{
+			ch = _getch();
+			if(ch == '\r')
+			{
+				Pass[i] = '\0';
+				break;
+			}
+			else if(ch == '\b' && i>0)
+			{
+				printf("\b \b");
+                i--;
+			}
+			else if(i<100)
+			{
+				Pass[i] = ch;
+				printf("*");
+				i++;
+			}
+		}
+	}
 	rewind(ptr);
 	while(!feof(ptr))
 	{	
@@ -921,7 +1132,7 @@ void user_signup()
 {
 	system("cls");
 	int i;
-	char card_choice;
+	char card_choice,ch;
 	struct user u,temp_read;
 	FILE *ptr;
 	ptr = fopen("user_login.bin","ab+");
@@ -944,7 +1155,30 @@ void user_signup()
 	fflush(stdin);
 	pass_reenter:
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
-	gets(u.pass);
+	i=0;
+	while(1)
+	{
+		if(_kbhit())
+		{
+			ch = _getch();
+			if(ch == '\r')
+			{
+				u.pass[i] = '\0';
+				break;
+			}
+			else if(ch == '\b' && i>0)
+			{
+				printf("\b \b");
+                i--;
+			}
+			else if(i<100)
+			{
+				u.pass[i] = ch;
+				printf("*");
+				i++;
+			}
+		}
+	}
 	if(strlen(u.pass)<8)
 	{
 		printf("\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again");
@@ -1078,7 +1312,7 @@ void change_user(int n)
 	FILE *ptr;
 	struct user u,*all=NULL;
 	int count=0,i;
-	char userName[50],unique_code[6],new_pass[50],new_pass2[50];
+	char userName[50],unique_code[6],new_pass[50],new_pass2[50],ch;
 	ptr = fopen("user_login.bin","rb");
 	while(fread(&u,sizeof(u),1,ptr))
 	{
@@ -1113,9 +1347,55 @@ void change_user(int n)
 				try_again:
 				fflush(stdin);
 				printf("\n\n\t\t\t\t\t\tEnter your new pass: ");
-				gets(new_pass);
+				i=0;
+				while(1)
+				{
+					if(_kbhit())
+					{
+						ch = _getch();
+						if(ch == '\r')
+						{
+							new_pass[i] = '\0';
+							break;
+						}
+						else if(ch == '\b' && i>0)
+						{
+							printf("\b \b");
+                			i--;
+						}
+						else if(i<100)
+						{
+							new_pass[i] = ch;
+							printf("*");
+							i++;
+						}
+					}
+				}
 				printf("\n\n\t\t\t\t\t   Enter your new pass again: ");
-				gets(new_pass2);
+				i=0;
+				while(1)
+				{
+					if(_kbhit())
+					{
+						ch = _getch();
+						if(ch == '\r')
+						{
+							new_pass2[i] = '\0';
+							break;
+						}
+						else if(ch == '\b' && i>0)
+						{
+							printf("\b \b");
+                			i--;
+						}
+						else if(i<100)
+						{
+							new_pass2[i] = ch;
+							printf("*");
+							i++;
+						}
+					}
+				}
 				if(strcmp(new_pass,new_pass2)==0)
 				{
 					strcpy(all[i].pass,new_pass);
