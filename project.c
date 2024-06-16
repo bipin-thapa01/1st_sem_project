@@ -56,7 +56,8 @@ struct user
 
 int main()
 {
-	int user_choice,i;
+	int i;
+	char user_choice;
 	top:
 	system("cls");
 	printf("\n\n\t\t\t\t\t\t\tMeroGaadi");
@@ -71,16 +72,17 @@ int main()
 	printf("\t\t\t\t[Press 3]");
 	printf("\n\n\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\n\t\t\t\t\t\t  Enter you choice: ");
-	scanf("%d",&user_choice);
+	fflush(stdin);
+	scanf("%c",&user_choice);
 	switch (user_choice)
 	{
-		case 1:
+		case '1':
 			bus_company_f();
 		break;
-		case 2:
+		case '2':
 			driver_f();
 		break;
-		case 3:
+		case '3':
 			user_f();
 		break;
 		default:
