@@ -94,6 +94,8 @@ int main()
 	printf("\n\t     [Press 1]");
 	printf("\t\t\t\t\t[Press 2]");
 	printf("\t\t\t\t[Press 3]");
+	printf("\n\n\n\t\t\t\t\t\t     4. Bus Company");
+	printf("\n\t\t\t\t\t\t\t[Press 4]");
 	printf("\n\n\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\n\t\t\t\t\t\t  Enter you choice: ");
 	fflush(stdin);
@@ -109,6 +111,10 @@ int main()
 		case '3':
 			user_f();
 		break;
+		case '4':
+			system("cls");
+			printf("\n\n\t\t\t\t\t\t  Thanks for visiting!");
+			exit(0);
 		default:
 			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
 			for(i=5;i>=1;i--)
