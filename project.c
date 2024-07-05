@@ -5,6 +5,10 @@
 #include<conio.h>
 #include<math.h>
 
+#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+
 void bus_company_f();
 void driver_f();
 void user_f();
@@ -84,17 +88,17 @@ int main()
 	char user_choice;
 	top:
 	system("cls");
-	printf("\n\n\t\t\t\t\t\t\tMeroGaadi");
+	printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t\t\tMeroGaadi"ANSI_COLOR_RESET );
 	printf("\n\n\n\t\t\t\t\t  Nepal\'s 1st multipurpose Driving App!");
 	printf("\n\n\n\t\t\t\t\t\t\tEnter As:");
 	printf("\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\n\t  1. Bus Company");
 	printf("\t\t\t\t2.Driver");
-	printf("\t\t\t\t3. User");
+	printf("\t\t\t     3. Passenger");
 	printf("\n\t     [Press 1]");
 	printf("\t\t\t\t\t[Press 2]");
 	printf("\t\t\t\t[Press 3]");
-	printf("\n\n\n\t\t\t\t\t\t     4. Bus Company");
+	printf("\n\n\n\t\t\t\t\t\t        4. Exit");
 	printf("\n\t\t\t\t\t\t\t[Press 4]");
 	printf("\n\n\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\n\t\t\t\t\t\t  Enter you choice: ");
@@ -113,10 +117,10 @@ int main()
 		break;
 		case '4':
 			system("cls");
-			printf("\n\n\t\t\t\t\t\t  Thanks for visiting!");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t\t  Thanks for visiting!"ANSI_COLOR_RESET );
 			exit(0);
 		default:
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -163,7 +167,7 @@ void bus_company_f()
 			main();
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -183,7 +187,7 @@ void bus_company_login()
 	ptr = fopen("bus_company_login.bin","rb");
 	if(ptr==NULL)
 	{
-		printf("\n\n\n\n\n\t\t\t\t\t  There is no bus company registered!");
+		printf(ANSI_COLOR_RED "\n\n\n\n\n\t\t\t\t\t  There is no bus company registered!"ANSI_COLOR_RESET );
 		printf("\n\n\n\t\t\t\t\t     Redirecting to SignUp page");
 		for(i=5;i>=1;i--)
 		{
@@ -237,13 +241,13 @@ void bus_company_login()
 			}	
 		}	
 	}
-	printf("\n\n\t\t\t\t\t  incorrect id or password! enter again");
+	printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t  incorrect id or password! enter again"ANSI_COLOR_RESET );
 	count++;
 	if(count>=2)
 	{
 		ask_forgot_pass:
 		system("cls");
-		printf("\n\n\t\t\t\t\t\t  Too many attempts!\n\n\t\t\t\t\t       Did you forgot your pass?:");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t  Too many attempts!\n\n\t\t\t\t\t       Did you forgot your pass?:"ANSI_COLOR_RESET );
 		printf("\n\n\t\t\t\t\t\t1.Yes [press \'y\' or \'Y\']");
 		printf("\n\n\t\t\t\t\t\t 1.No [press \'n\' or \'N\']");
 		printf("\n\n\n\t\t\t\t\t\t  Enter you choice: ");
@@ -255,7 +259,7 @@ void bus_company_login()
 		}
 		else if(choice == 'n' || choice == 'N')
 		{
-			printf("\n\n\t\t\t\t\t    Redirecting to homepage");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    Redirecting to homepage"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -265,7 +269,7 @@ void bus_company_login()
 		}
 		else
 		{
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -295,12 +299,27 @@ void bus_company_signup()
 		}
 		main();
 	}
+	rewind(ptr);
 	printf("\n\n\n\t\t\t\t\t\t\tBus Company");
 	printf("\n\n\t\t\t\t\t\t\tSignUp Page");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	fflush(stdin);
-	printf("\n\n\t\t\t\t\t\tEnter Username: ");
+	printf("\n\n\t\t\t\t\t\t    Enter id: ");
 	gets(b.username);
+	while(fread(&temp_read,sizeof(temp_read),1,ptr))
+	{
+		if(strcmp(b.username,temp_read.username)==0)
+		{
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t    Company with same id already exists. Try Again!"ANSI_COLOR_RESET );
+			for(i=5;i>=1;i--)
+			{
+				printf(".");
+				Sleep(1000);
+			}
+			bus_company_signup();
+		}
+	}
+	rewind(ptr);
 	fflush(stdin);
 	pass_reenter:
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
@@ -330,22 +349,37 @@ void bus_company_signup()
 	}
 	if(strlen(b.pass)<8&&strlen(b.pass)>50)
 	{
-		printf("\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again"ANSI_COLOR_RESET );
 		goto pass_reenter;
 	}
+	reenter_name:
 	system("cls");
 	printf("\n\n\n\t\t\t\t\t\t\tBus Company");
 	printf("\n\n\t\t\t\t\t\t\tSignUp Page");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
-	reenter_name:
 	fflush(stdin);
-	printf("\n\n\t\t\t\t\t\tEnter Name: ");
+	printf("\n\n\t\t\t\t\tEnter Company Name: ");
 	gets(b.name);
+	while(fread(&temp_read,sizeof(temp_read),1,ptr))
+	{
+		if(strcmp(b.name,temp_read.name)==0)
+		{
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t    Company with same name already exists. Try Again!"ANSI_COLOR_RESET );
+			for(i=5;i>=1;i--)
+			{
+				printf(".");
+				Sleep(1000);
+			}
+			rewind(ptr);
+			goto reenter_name;
+		}
+	}
+	rewind(ptr);
 	for(i=0;b.name[i]!='\0';i++)
 	{
 		if(!((b.name[i]>=65&&b.name[i]<=90)||(b.name[i]>=97&&b.name[i]<=122)||b.name[i]==' '))
 		{
-			printf("\n\n\t\t\t\tName of company can only be alphabets and space!");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\tName of company can only be alphabets and space!"ANSI_COLOR_RESET );
 			goto reenter_name;
 		}
 	}
@@ -355,7 +389,7 @@ void bus_company_signup()
 	gets(b.unique_pin);
 	if(strlen(b.unique_pin)!=5)
 	{
-		printf("\n\n\t\tunique pin must be equals to 5 characters! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\tunique pin must be equals to 5 characters! Try again"ANSI_COLOR_RESET );
 		goto unique;
 	}
 	printf("\n\n\t\t\t\t\t\tTotal bus number: ");
@@ -374,10 +408,10 @@ void bus_company_signup()
 	fwrite(&b,sizeof(b),1,ptr);
 	fclose(ptr);
 	system("cls");
-	printf("\n\n\n\t\t\t\t\t\t\tCongratulations!");
+	printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t\t\tCongratulations!"ANSI_COLOR_RESET );
 	printf("\n\n\n\t\t\t\t\tYour comapny has been successfully registered!");
-	printf("\n\n\n\t\t\t\t\t\t\t    Login Now!");
-	printf("\n\n\n\t\t\t\t\t\tRedirecting");
+	printf("\n\n\n\t\t\t\t\t\t         Login Now!");
+	printf("\n\n\n\t\t\t\t\t\t         Redirecting");
 	for(i=5;i>=1;i--)
 	{
 		printf(".");
@@ -434,7 +468,7 @@ void bus_company_homepage(char username[])
 			bus_company_setting(username);
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -542,8 +576,8 @@ void change_bus_company(int n)
 					ptr = fopen("bus_company_login.bin","wb");
 					fwrite(all,sizeof(struct bus_company),count,ptr);
 					fclose(ptr);
-					printf("\n\n\n\t\t\t\t\tPassword changed successfully!");
-					printf("\n\n\n\t\t\t\t\t\tRedirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t     Password changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t     Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -553,16 +587,16 @@ void change_bus_company(int n)
 				}
 				else
 				{
-					printf("\n\n\n\t\t\t\t    Password didnot match! Try again");
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto try_again;
 				}	
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or code! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t     Incorrect username or code! Try again"ANSI_COLOR_RESET );
 		error_count++;
 		if(error_count >=2)
 		{
-			printf("\n\n\t\t\t\t\t\t  Too many attempts!");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t  Too many attempts!"ANSI_COLOR_RESET );
 			printf("\n\n\t\t\t\t\t    Redirecting to homepage");	
 			for(j=5;j>=1;j--)
 			{
@@ -602,7 +636,7 @@ void change_bus_company(int n)
 				bus_company_login();
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 		goto username_try_again;
 	}
 	else if(n == 2)
@@ -629,7 +663,7 @@ void change_bus_company(int n)
 					ptr = fopen("bus_company_login.bin","wb");
 					fwrite(all,sizeof(struct bus_company),count,ptr);
 					fclose(ptr);
-					printf("\n\n\n\t\t\t\t\t    Password changed successfully!");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Password changed successfully!"ANSI_COLOR_RESET );
 					printf("\n\n\n\t\t\t\t\t\t   Redirecting");
 					for(i=5;i>=1;i--)
 					{
@@ -640,12 +674,12 @@ void change_bus_company(int n)
 				}
 				else
 				{
-					printf("\n\n\n\t\t\t\t    Password didnot match! Try again");
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto p_try_again;
 				}	
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or pass! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or pass! Try again"ANSI_COLOR_RESET );
 		goto pass_try_again;
 	}
 	else if(n == 3)
@@ -667,7 +701,7 @@ void change_bus_company(int n)
 				ptr = fopen("bus_company_login.bin","wb");
 				fwrite(all,sizeof(struct bus_company),count,ptr);
 				fclose(ptr);
-				printf("\n\n\n\t\t\t\t\tComapny Name changed successfully!");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tComapny Name changed successfully!"ANSI_COLOR_RESET );
 				printf("\n\n\n\t\t\t\t\t\tRedirecting");
 				for(i=5;i>=1;i--)
 				{
@@ -677,7 +711,7 @@ void change_bus_company(int n)
 				bus_company_login();
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 		goto name_try_again;
 	}
 	else if(n == 4)
@@ -704,12 +738,12 @@ void change_bus_company(int n)
 		fclose(ptr);
 		if(flag == 0)
 		{
-			printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 			goto name_try_again;	
 		}
 		else
 		{
-			printf("\n\n\t\t\t\t\t    ID deletd successfully!");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    ID deletd successfully!"ANSI_COLOR_RESET );
 			printf("\n\n\t\t\t\t\t\t    Redirecting");
 			for(i=5;i>=1;i--)
 			{
@@ -758,7 +792,7 @@ void bus_company_setting(char username[])
 		break;
 		case '4':
 			system("cls");
-			printf("\n\n\n\n\t\t\t\t\t\t\tExiting");
+			printf(ANSI_COLOR_GREEN"\n\n\n\n\t\t\t\t\t\t\tExiting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -770,7 +804,7 @@ void bus_company_setting(char username[])
 			change_bus_company(4);
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -858,7 +892,7 @@ void check_report(char username[])
 	}
 	else if(choice<0||choice>counter)
 	{
-		printf("\n\n\t\t\t\t\t Incorrect option! Try Again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t Incorrect option! Try Again"ANSI_COLOR_RESET );
 		for(j=3;j>=1;j--)
 		{
 			printf(".");
@@ -937,7 +971,7 @@ void increase_bus(char username[])
 		scanf("%d",&bus_number);
 		if(bus_number>20||bus_number<1)
 		{
-			printf("\n\n\t\t\t\t\tError! Upto 20 buses can be increase at a time");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! <20 & >0 buses can be increase at a time"ANSI_COLOR_RESET );
 			increase_bus(username);
 		}
 		bus_number += original_bus_number;
@@ -949,12 +983,12 @@ void increase_bus(char username[])
 		scanf("%d",&bus_number);
 		if(bus_number>20||bus_number<1)
 		{
-			printf("\n\n\t\t\t\t\tError! Upto 20 buses can be desrease at a time");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! <20 & >0 buses can be desrease at a time"ANSI_COLOR_RESET );
 			goto retry;
 		}
 		if(original_bus_number - bus_number < 0)
 		{
-			printf("\n\n\t\t\t\t\tError! Bus number cannot be less than zero!");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! Bus number cannot be less than zero!"ANSI_COLOR_RESET );
 			goto retry;
 		}
 		bus_number = original_bus_number - bus_number;
@@ -965,7 +999,7 @@ void increase_bus(char username[])
 	}
 	else
 	{
-		printf("\n\n\t\t\t\t\tError! Incorrect Option. Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! Incorrect Option. Try again"ANSI_COLOR_RESET );
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -992,7 +1026,7 @@ void increase_bus(char username[])
 		if(strcmp(all[i].username,username)==0)
 		{
 			all[i].bus_number = bus_number;
-			printf("\n\n\t\t\t\t\tChanged total number of buses is: %d",all[i].bus_number);
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tChanged total number of buses is: %d"ANSI_COLOR_RESET ,all[i].bus_number);
 		}
 	}
 	fwrite(&all,sizeof(struct bus_company),count,ptr);
@@ -1082,7 +1116,7 @@ void recruit_driver(char username[])
 	scanf("%d",&choice);
 	if(choice<0||choice>count)
 	{
-		printf("\n\n\t\t\t\t\tError! Incorrect Option. Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! Incorrect Option. Try again"ANSI_COLOR_RESET );
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -1115,7 +1149,7 @@ void recruit_driver(char username[])
 	fread(&all_job,sizeof(struct job_application),record_count,ptr_job);
 	fclose(ptr_job);
 	fclose(ptr_temp);
-	ptr_job = fopen("rewrite.bin","wb+");
+	ptr_job = fopen("job_application.bin","wb+");
 	for(i=0;i<record_count;i++)
 	{
 		if(strcmp(all_job[i].employee_name,hired_employee_name)==0)
@@ -1129,9 +1163,7 @@ void recruit_driver(char username[])
 	}
 	fclose(ptr_job);
 	fflush(stdin);
-	remove("job_application.bin");
-	rename("rewrite.bin","job_application.bin");
-	printf("\n\n\t\t\t\t\tDriver has been successfully recruited.");
+	printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tDriver has been successfully recruited."ANSI_COLOR_RESET );
 	printf("\n\n\t\t\t\t\t   Enter any thing to go back: ");
 	fflush(stdin);
 	scanf("%c",&quit);
@@ -1173,7 +1205,7 @@ void driver_f()
 			main();
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t\tRedirecting");
+			printf(ANSI_COLOR_RED"\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t\tRedirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -1248,13 +1280,13 @@ void driver_login()
 			}	
 		}	
 	}
-	printf("\n\n\t\t\t\t\t  incorrect id or password! enter again");
+	printf(ANSI_COLOR_RED"\n\n\t\t\t\t\t  incorrect id or password! enter again"ANSI_COLOR_RESET );
 	count++;
 	if(count>=2)
 	{
 		ask_forgot_pass:
 		system("cls");
-		printf("\n\n\t\t\t\t\t\t  Too many attempts!\n\n\t\t\t\t\t       Did you forgot your pass?:");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t  Too many attempts!\n\n\t\t\t\t\t       Did you forgot your pass?:"ANSI_COLOR_RESET );
 		printf("\n\n\t\t\t\t\t\t1.Yes [press \'y\' or \'Y\']");
 		printf("\n\n\t\t\t\t\t\t 1.No [press \'n\' or \'N\']");
 		printf("\n\n\n\t\t\t\t\t\t  Enter you choice: ");
@@ -1276,7 +1308,7 @@ void driver_login()
 		}
 		else
 		{
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -1306,12 +1338,27 @@ void driver_signup()
 		}
 		main();
 	}
+	rewind(ptr);
 	printf("\n\n\n\t\t\t\t\t\t\tDriver\'s Hub");
 	printf("\n\n\t\t\t\t\t\t\tSignUp Page");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t\tEnter Username: ");
 	gets(d.username);
+	while(fread(&temp_read,sizeof(temp_read),1,ptr))
+	{
+		if(strcmp(d.username,temp_read.username)==0)
+		{
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t Driver with same username already exists. Try Again!"ANSI_COLOR_RESET );
+			for(i=5;i>=1;i--)
+			{
+				printf(".");
+				Sleep(1000);
+			}
+			driver_signup();
+		}
+	}
+	rewind(ptr);
 	fflush(stdin);
 	pass_reenter:
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
@@ -1341,22 +1388,37 @@ void driver_signup()
 	}
 	if(strlen(d.pass)<8)
 	{
-		printf("\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again"ANSI_COLOR_RESET );
 		goto pass_reenter;
 	}
+	reenter_name:
 	system("cls");
 	printf("\n\n\n\t\t\t\t\t\t\tDriver\'s Hub");
 	printf("\n\n\t\t\t\t\t\t\tSignUp Page");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
-	reenter_name:
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t    Enter Full Name: ");
 	gets(d.real_name);
+	while(fread(&temp_read,sizeof(temp_read),1,ptr))
+	{
+		if(strcmp(d.real_name,temp_read.real_name)==0)
+		{
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\tDriver with same name already exists. Try Again!"ANSI_COLOR_RESET );
+			for(i=5;i>=1;i--)
+			{
+				printf(".");
+				Sleep(1000);
+			}
+			rewind(ptr);
+			goto reenter_name;
+		}
+	}
+	rewind(ptr);
 	for(i=0;d.real_name[i]!='\0';i++)
 	{
 		if(!((d.real_name[i]>=65&&d.real_name[i]<=90)||(d.real_name[i]>=97&&d.real_name[i]<=122)||d.real_name[i]==' '))
 		{
-			printf("\n\n\t\t\t\tName of person can only be alphabets and space!");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\tName of person can only be alphabets and space!"ANSI_COLOR_RESET );
 			goto reenter_name;
 		}
 	}
@@ -1373,16 +1435,16 @@ void driver_signup()
 	gets(d.unique_pin);
 	if(strlen(d.unique_pin)!=5)
 	{
-		printf("\n\n\t\tunique pin must be equals to 5 characters! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\tunique pin must be equals to 5 characters! Try again"ANSI_COLOR_RESET );
 		goto unique;
 	}
 	fwrite(&d,sizeof(d),1,ptr);
 	fclose(ptr);
 	system("cls");
-	printf("\n\n\n\t\t\t\t\t\t\tCongratulations!");
+	printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t\t\tCongratulations!"ANSI_COLOR_RESET );
 	printf("\n\n\n\t\t\t\t\tYour account has been successfully registered!");
-	printf("\n\n\n\t\t\t\t\t\tLogin Now!");
-	printf("\n\n\n\t\t\t\t\t\tRedirecting");
+	printf("\n\n\n\t\t\t\t\t\t         Login Now!");
+	printf("\n\n\n\t\t\t\t\t\t         Redirecting");
 	for(i=5;i>=1;i--)
 	{
 		printf(".");
@@ -1447,7 +1509,7 @@ void driver_homepage(char username[])
 			driver_setting(username);
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -1554,7 +1616,7 @@ void change_driver(int n)
 					ptr = fopen("driver_login.bin","wb");
 					fwrite(all,sizeof(struct driver),count,ptr);
 					fclose(ptr);
-					printf("\n\n\n\t\t\t\t\tPassword changed successfully!");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tPassword changed successfully!"ANSI_COLOR_RESET );
 					printf("\n\n\n\t\t\t\t\t\tRedirecting");
 					for(i=5;i>=1;i--)
 					{
@@ -1565,16 +1627,16 @@ void change_driver(int n)
 				}
 				else
 				{
-					printf("\n\n\n\t\t\t\t    Password didnot match! Try again");
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto try_again;
 				}	
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or code! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or code! Try again"ANSI_COLOR_RESET );
 		error_count++;
 		if(error_count >=2)
 		{
-			printf("\n\n\t\t\t\t\t\t  Too many attempts!");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t  Too many attempts!"ANSI_COLOR_RESET );
 			printf("\n\n\t\t\t\t\t    Redirecting to homepage");	
 			for(j=5;j>=1;j--)
 			{
@@ -1604,7 +1666,7 @@ void change_driver(int n)
 				ptr = fopen("driver_login.bin","wb");
 				fwrite(all,sizeof(struct driver),count,ptr);
 				fclose(ptr);
-				printf("\n\n\n\t\t\t\t\tUsername changed successfully!");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tUsername changed successfully!"ANSI_COLOR_RESET );
 				printf("\n\n\n\t\t\t\t\t\tRedirecting");
 				for(i=5;i>=1;i--)
 				{
@@ -1614,7 +1676,7 @@ void change_driver(int n)
 				driver_login();
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 		goto username_try_again;
 	}
 	else if(n == 2)
@@ -1641,7 +1703,7 @@ void change_driver(int n)
 					ptr = fopen("driver_login.bin","wb");
 					fwrite(all,sizeof(struct driver),count,ptr);
 					fclose(ptr);
-					printf("\n\n\n\t\t\t\t\t    Password changed successfully!");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Password changed successfully!"ANSI_COLOR_RESET );
 					printf("\n\n\n\t\t\t\t\t\t   Redirecting");
 					for(i=5;i>=1;i--)
 					{
@@ -1652,12 +1714,12 @@ void change_driver(int n)
 				}
 				else
 				{
-					printf("\n\n\n\t\t\t\t    Password didnot match! Try again");
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto p_try_again;
 				}	
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or pass! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or pass! Try again"ANSI_COLOR_RESET );
 		goto pass_try_again;
 	}
 	else if(n == 3)
@@ -1679,7 +1741,7 @@ void change_driver(int n)
 				ptr = fopen("driver_login.bin","wb");
 				fwrite(all,sizeof(struct driver),count,ptr);
 				fclose(ptr);
-				printf("\n\n\n\t\t\t\t\tReal Name changed successfully!");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tReal Name changed successfully!"ANSI_COLOR_RESET );
 				printf("\n\n\n\t\t\t\t\t\tRedirecting");
 				for(i=5;i>=1;i--)
 				{
@@ -1689,7 +1751,7 @@ void change_driver(int n)
 				driver_login();
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 		goto name_try_again;
 	}
 	else if(n == 4)
@@ -1716,12 +1778,12 @@ void change_driver(int n)
 		fclose(ptr);
 		if(flag == 0)
 		{
-			printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 			goto name_try_again;	
 		}
 		else
 		{
-			printf("\n\n\t\t\t\t\t    ID deletd successfully!");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    ID deletd successfully!"ANSI_COLOR_RESET );
 			printf("\n\n\t\t\t\t\t\t    Redirecting");
 			for(i=5;i>=1;i--)
 			{
@@ -1782,7 +1844,7 @@ void driver_setting(char username[])
 			change_driver(4);
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -1845,9 +1907,9 @@ void job_apply(char username[])
 			if(d.recruit_status=='y')
 			{
 				printf("\n\n\t\t\t\t\t\tYou are already hired by %s.",d.affiliated_company);
-				printf("\n\n\t\t\t\t\t\tOptions:");
-				printf("\n\n\t\t\t\t\t     1. Leave Job");
-				printf("\n\n\t\t\t\t\t     2. <-- Back");
+				printf("\n\n\t\t\t\t\t\t\t   Options:");
+				printf("\n\n\t\t\t\t\t\t       1. Leave Job");
+				printf("\n\n\t\t\t\t\t\t       2. <-- Back");
 				printf("\n\n\t\t\t\t\tEnter your choice: ");
 				scanf("%d",&recruit_choice);
 				if(recruit_choice == 1)
@@ -1872,7 +1934,7 @@ void job_apply(char username[])
 					scanf("%d",&choice);
 					if(choice<0||choice>count)
 					{
-						printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+						printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 						for(i=5;i>=1;i--)
 						{
 							printf(".");
@@ -1917,7 +1979,7 @@ void job_apply(char username[])
 								fwrite(&all,sizeof(struct driver),count_driver,ptr_driver);
 								fclose(ptr_driver);
 								system("cls");
-								printf("\n\n\t\t\t\t\t\t     Applied Successfully!");
+								printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t\t     Applied Successfully!"ANSI_COLOR_RESET );
 								printf("\n\n\t\t\t\t\t\t\tRedirecting");
 								for(i=5;i>=1;i--)
 								{
@@ -1933,7 +1995,7 @@ void job_apply(char username[])
 							}
 							else
 							{
-								printf("\n\n\t\t\t\t\t\tInvalid input! Try Again");
+								printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid input! Try Again"ANSI_COLOR_RESET );
 								for(k=5;k>=1;k--)
 								{
 									printf(".");
@@ -1951,7 +2013,7 @@ void job_apply(char username[])
 				}
 				else
 				{
-					printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+					printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -1991,7 +2053,7 @@ void job_apply(char username[])
 				scanf("%d",&choice);
 				if(choice<0||choice>count)
 				{
-					printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+					printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -2037,7 +2099,7 @@ void job_apply(char username[])
 							fwrite(&all,sizeof(struct driver),count_driver,ptr_driver);
 							fclose(ptr_driver);
 							system("cls");
-							printf("\n\n\t\t\t\t\t\t      Applied Successfully!");
+							printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t\t      Applied Successfully!"ANSI_COLOR_RESET );
 							printf("\n\n\t\t\t\t\t\t\tRedirecting");
 							for(i=5;i>=1;i--)
 							{
@@ -2053,7 +2115,7 @@ void job_apply(char username[])
 						}
 						else
 						{
-							printf("\n\n\t\t\t\t\t\tInvalid input! Try Again");
+							printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid input! Try Again"ANSI_COLOR_RESET );
 							for(k=5;k>=1;k--)
 							{
 								printf(".");
@@ -2128,7 +2190,7 @@ void user_f()
 	char register_choice,i;
 	top:
 	system("cls");
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\t\t\t\t\t\t    Already Registered?");
 	printf("\n\n\n\t\t\t\t\t\t\t    Yes\n\t\t\t\t\t\t    [Press 'y' or 'Y']");
@@ -2158,7 +2220,7 @@ void user_f()
 			main();
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -2178,7 +2240,7 @@ void user_login()
 	ptr = fopen("user_login.bin","rb");
 	if(ptr==NULL)
 	{
-		printf("\n\n\n\n\n\t\t\t\t\t\t  There is no user registered!");
+		printf(ANSI_COLOR_RED "\n\n\n\n\n\t\t\t\t\t\t  There is no user registered!"ANSI_COLOR_RESET );
 		printf("\n\n\n\t\t\t\t\t     Redirecting to SigUp page");
 		for(i=5;i>=1;i--)
 		{
@@ -2232,7 +2294,7 @@ void user_login()
 			}	
 		}	
 	}
-	printf("\n\n\t\t\t\t\t  incorrect id or password! enter again");
+	printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t  incorrect id or password! enter again"ANSI_COLOR_RESET );
 	count++;
 	if(count>=2)
 	{
@@ -2260,7 +2322,7 @@ void user_login()
 		}
 		else
 		{
-			printf("\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t     Invalid Input\n\t\t\t\t\t\t    Redirecting"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -2290,12 +2352,27 @@ void user_signup()
 		}
 		main();
 	}
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
+	rewind(ptr);
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
 	printf("\n\n\t\t\t\t\t\t\tSignUp Page");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t\tEnter Username: ");
 	gets(u.username);
+	while(fread(&temp_read,sizeof(temp_read),1,ptr))
+	{
+		if(strcmp(u.username,temp_read.username)==0)
+		{
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t Passenger with same id already exists. Try Again!"ANSI_COLOR_RESET );
+			for(i=5;i>=1;i--)
+			{
+				printf(".");
+				Sleep(1000);
+			}
+			user_signup();
+		}
+	}
+	rewind(ptr);
 	fflush(stdin);
 	pass_reenter:
 	printf("\n\n\t\t\t\t\t\tEnter Password: ");
@@ -2325,22 +2402,37 @@ void user_signup()
 	}
 	if(strlen(u.pass)<8)
 	{
-		printf("\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\tPassword Length must be >7 and <50 characters! Try Again"ANSI_COLOR_RESET );
 		goto pass_reenter;
 	}
+	reenter_name:
 	system("cls");
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
 	printf("\n\n\t\t\t\t\t\t\tSignUp Page");
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
-	reenter_name:
 	fflush(stdin);
 	printf("\n\n\t\t\t\t\t    Enter Full Name: ");
 	gets(u.real_name);
+	while(fread(&temp_read,sizeof(temp_read),1,ptr))
+	{
+		if(strcmp(u.real_name,temp_read.real_name)==0)
+		{
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t Passenger with same id already exists. Try Again!"ANSI_COLOR_RESET );
+			for(i=5;i>=1;i--)
+			{
+				printf(".");
+				Sleep(1000);
+			}
+			rewind(ptr);
+			goto reenter_name;
+		}
+	}
+	rewind(ptr);
 	for(i=0;u.real_name[i]!='\0';i++)
 	{
 		if(!((u.real_name[i]>=65&&u.real_name[i]<=90)||(u.real_name[i]>=97&&u.real_name[i]<=122)||u.real_name[i]==' '))
 		{
-			printf("\n\n\t\t\t\tName of person can only be alphabets and space!");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\tName of person can only be alphabets and space!"ANSI_COLOR_RESET );
 			goto reenter_name;
 		}
 	}
@@ -2361,16 +2453,16 @@ void user_signup()
 	gets(u.unique_pin);
 	if(strlen(u.unique_pin)!=5)
 	{
-		printf("\n\n\t\tunique pin must be equals to 5 characters! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\tunique pin must be equals to 5 characters! Try again"ANSI_COLOR_RESET );
 		goto unique;
 	}
 	fwrite(&u,sizeof(u),1,ptr);
 	fclose(ptr);
 	system("cls");
-	printf("\n\n\n\t\t\t\t\t\t\tCongratulations!");
+	printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t\t\tCongratulations!"ANSI_COLOR_RESET );
 	printf("\n\n\n\t\t\t\t\tYour account has been successfully registered!");
-	printf("\n\n\n\t\t\t\t\tLogin Now!");
-	printf("\n\n\n\t\t\t\t\t\tRedirecting");
+	printf("\n\n\n\t\t\t\t\t\t         Login Now!");
+	printf("\n\n\n\t\t\t\t\t\t         Redirecting");
 	for(i=5;i>=1;i--)
 	{
 		printf(".");
@@ -2396,8 +2488,8 @@ void user_homepage(char username[])
 		main();
 	}
 	retry:
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
-	printf("\n\n\t\t\t\t\t\t    Welcome User %s!",username);
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
+	printf("\n\n\t\t\t\t\t\t    Welcome Passenger %s!",username);
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\t\t\t\t\t\t\t  Features");
 	printf("\n\n\n\t  1.List of Bus");
@@ -2439,7 +2531,7 @@ void user_homepage(char username[])
 			user_setting(username);
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -2546,7 +2638,7 @@ void change_user(int n)
 					ptr = fopen("user_login.bin","wb");
 					fwrite(all,sizeof(struct user),count,ptr);
 					fclose(ptr);
-					printf("\n\n\n\t\t\t\t\tPassword changed successfully!");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tPassword changed successfully!"ANSI_COLOR_RESET );
 					printf("\n\n\n\t\t\t\t\t\tRedirecting");
 					for(i=5;i>=1;i--)
 					{
@@ -2557,12 +2649,12 @@ void change_user(int n)
 				}
 				else
 				{
-					printf("\n\n\n\t\t\t\t    Password didnot match! Try again");
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto try_again;
 				}	
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or code! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or code! Try again"ANSI_COLOR_RESET );
 		error_count++;
 		if(error_count >=2)
 		{
@@ -2596,7 +2688,7 @@ void change_user(int n)
 				ptr = fopen("user_login.bin","wb");
 				fwrite(all,sizeof(struct user),count,ptr);
 				fclose(ptr);
-				printf("\n\n\n\t\t\t\t\tUsername changed successfully!");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tUsername changed successfully!"ANSI_COLOR_RESET );
 				printf("\n\n\n\t\t\t\t\t\tRedirecting");
 				for(i=5;i>=1;i--)
 				{
@@ -2606,7 +2698,7 @@ void change_user(int n)
 				user_login();
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 		goto username_try_again;
 	}
 	else if(n == 2)
@@ -2633,7 +2725,7 @@ void change_user(int n)
 					ptr = fopen("user_login.bin","wb");
 					fwrite(all,sizeof(struct user),count,ptr);
 					fclose(ptr);
-					printf("\n\n\n\t\t\t\t\t    Password changed successfully!");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Password changed successfully!"ANSI_COLOR_RESET );
 					printf("\n\n\n\t\t\t\t\t\t   Redirecting");
 					for(i=5;i>=1;i--)
 					{
@@ -2644,12 +2736,12 @@ void change_user(int n)
 				}
 				else
 				{
-					printf("\n\n\n\t\t\t\t    Password didnot match! Try again");
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto p_try_again;
 				}	
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or pass! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or pass! Try again"ANSI_COLOR_RESET );
 		goto pass_try_again;
 	}
 	else if(n == 3)
@@ -2671,7 +2763,7 @@ void change_user(int n)
 				ptr = fopen("user_login.bin","wb");
 				fwrite(all,sizeof(struct user),count,ptr);
 				fclose(ptr);
-				printf("\n\n\n\t\t\t\t\tReal Name changed successfully!");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tReal Name changed successfully!"ANSI_COLOR_RESET );
 				printf("\n\n\n\t\t\t\t\t\tRedirecting");
 				for(i=5;i>=1;i--)
 				{
@@ -2681,7 +2773,7 @@ void change_user(int n)
 				user_login();
 			}
 		}
-		printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 		goto name_try_again;
 	}
 	else if(n == 4)
@@ -2708,12 +2800,12 @@ void change_user(int n)
 		fclose(ptr);
 		if(flag == 0)
 		{
-			printf("\n\n\t\t\t\t\tIncorrect username or password! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tIncorrect username or password! Try again"ANSI_COLOR_RESET );
 			goto name_try_again;	
 		}
 		else
 		{
-			printf("\n\n\t\t\t\t\t    ID deletd successfully!");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    ID deletd successfully!"ANSI_COLOR_RESET );
 			printf("\n\n\t\t\t\t\t\t    Redirecting");
 			for(i=5;i>=1;i--)
 			{
@@ -2731,8 +2823,8 @@ void user_setting(char username[])
 	char user_choice;
 	int i;
 	retry:
-	printf("\n\n\n\t\t\t\t\t\t      User\'s Settings");
-	printf("\n\n\t\t\t\t\t\t     User %s!",username);
+	printf("\n\n\n\t\t\t\t\t\t      Passenger\'s Settings");
+	printf("\n\n\t\t\t\t\t\t     Passenger %s!",username);
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\t\t\t\t\t\t\t  Features");
 	printf("\n\n\n\t  1.Change username");
@@ -2774,7 +2866,7 @@ void user_setting(char username[])
 			change_user(4);
 		break;
 		default:
-			printf("\n\n\t\t\t\t\t\tInvalid Input! Try again");
+			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET );
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -2802,8 +2894,8 @@ void bus_list(char username[])
 		}
 		main();
 	}
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
-	printf("\n\n\t\t\t\t\t\tWelcome User %s!",username);
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
+	printf("\n\n\t\t\t\t\t\tWelcome Passenger %s!",username);
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\t\t\t\t\t       List of active bus company");
 	while(fread(&b,sizeof(b),1,ptr))
@@ -2849,7 +2941,7 @@ void bus_list(char username[])
 			}
 			else
 			{
-				printf("\n\n\t\t\t\t\t\t    Incorrect Input!");
+				printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t\t    Incorrect Input!"ANSI_COLOR_RESET );
 				printf("\n\n\t\t\t\t\t\t     Redirecting");
 				for(j=5;j>=1;j--)
 				{
@@ -2860,7 +2952,7 @@ void bus_list(char username[])
 			}
 		}	
 	}
-	printf("\n\n\t\t\t\t\t    Incorrect option! Try Again");
+	printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t    Incorrect option! Try Again"ANSI_COLOR_RESET );
 	for(j=3;j>=1;j--)
 	{
 		printf(".");
@@ -2900,8 +2992,8 @@ void travelling_fare(char username[])
 		}
 		main();
 	}
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
-	printf("\n\n\t\t\t\t\t\tWelcome User %s!",username);
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
+	printf("\n\n\t\t\t\t\t\tWelcome Passenger %s!",username);
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\t\t\t\t\t\tTravelling Fare Calculator");
 	printf("\n\n\t\t\t\t\t       List of active bus company");
@@ -2914,7 +3006,7 @@ void travelling_fare(char username[])
 	rewind(bus_ptr);
 	all_bus = (struct bus_company*)calloc(count,sizeof(struct bus_company));
 	fread(all_bus,sizeof(struct bus_company),count,bus_ptr);
-	printf("\n\n\t\t\t\t    Note: Bus fare can only be calculated for the same bus!");
+	printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t    Note: Bus fare can only be calculated for the same bus!"ANSI_COLOR_RESET );
 	printf("\n\n\n\t\t\t\t   Enter number above to calculate fare: ");
 	fflush(stdin);
 	scanf("%d",&choice);
@@ -2940,14 +3032,14 @@ void travelling_fare(char username[])
 			scanf("%d",&d_location);
 			if(p_location == d_location)
 			{
-				printf("\n\n\t\t\t\t    Error! You cannot have same pickup and destination.");
+				printf(ANSI_COLOR_RED "\n\n\t\t\t\t    Error! You cannot have same pickup and destination."ANSI_COLOR_RESET );
 				goto retry;
 			}
 			else if((p_location<1||p_location>3)||(d_location<1||d_location>3))
 			{
 				try_again:
 				system("cls");
-				printf("\n\n\t\t\t\t\t    Incorrect option! Do you want to exit?");
+				printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t    Incorrect option! Do you want to exit?"ANSI_COLOR_RESET );
 				printf("\n\n\n\t\t\t\t\t\t\t    Yes\n\t\t\t\t\t\t    [Press 'y' or 'Y']");
 				printf("\n\n\n\t\t\t\t\t\t\t     No\n\t\t\t\t\t\t    [Press 'n' or 'N']");
 				printf("\n\n\n\t\t\t\t\tEnter your choice: ");
@@ -2963,7 +3055,7 @@ void travelling_fare(char username[])
 				}
 				else
 				{
-					printf("\n\n\t\t\t\t\t    Incorrect option! Try Again");
+					printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t    Incorrect option! Try Again"ANSI_COLOR_RESET );
 					for(j=3;j>=1;j--)
 					{
 						printf(".");
@@ -2993,8 +3085,8 @@ void travelling_fare(char username[])
 				}
 			}
 			system("cls");
-			printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
-			printf("\n\n\t\t\t\t\t\tWelcome User %s!",username);
+			printf("\n\n\n\t\t\t\t\t\t\tPaasenger\'s Hub");
+			printf("\n\n\t\t\t\t\t\tWelcome Passenger %s!",username);
 			printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 			printf("\n\n\t\t\t\t\t\tTravelling Fare Calculator");
 			printf("\n\n\n\n\t\t\t\t\t      Your total Fare is: %.2f",fare);
@@ -3002,13 +3094,13 @@ void travelling_fare(char username[])
 			{
 				printf("\n\n\t\t\t\t\t     Your total discount is: %.2f",discount);
 			}
-			printf("\n\n\t\t\t\t\t\t Enter any thing to go to homepage: ");
+			printf("\n\n\t\t\t\t\t  Enter any thing to go to homepage: ");
 			fflush(stdin);
 			scanf("%c",&quit);
 			user_homepage(username);
 		}
 	}
-	printf("\n\n\t\t\t\t\t    Incorrect option! Try Again");
+	printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t    Incorrect option! Try Again"ANSI_COLOR_RESET );
 	for(j=3;j>=1;j--)
 	{
 		printf(".");
@@ -3058,8 +3150,8 @@ void user_report(char username[])
 		main();
 	}
 	system("cls");
-	printf("\n\n\n\t\t\t\t\t\t\tUser\'s Hub");
-	printf("\n\n\t\t\t\t\t\tWelcome User %s!",username);
+	printf("\n\n\n\t\t\t\t\t\t\tPassenger\'s Hub");
+	printf("\n\n\t\t\t\t\t\tWelcome Passenger %s!",username);
 	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\t\t\t\t\t\t    Report Section");
 	printf("\n\n\n\t\t\t\t\tChoose the company to want to report to!");
@@ -3072,7 +3164,7 @@ void user_report(char username[])
 	scanf("%d",&bus_no);
 	if(bus_no<1||bus_no>count)
 	{
-		printf("\n\n\t\t\t\t\t Incorrect option! Try Again");
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t Incorrect option! Try Again"ANSI_COLOR_RESET );
 		for(j=3;j>=1;j--)
 		{
 			printf(".");
@@ -3104,7 +3196,7 @@ void user_report(char username[])
 	fclose(ptr_user);
 	fclose(ptr_report);
 	fclose(ptr_bus);
-	printf("\n\n\t\t\t\t\t\tReported Successfully!");
+	printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t\tReported Successfully!"ANSI_COLOR_RESET );
 	printf("\n\n\t\t\t\t\tEnter any thing to go to homepage: ");
 	fflush(stdin);
 	scanf("%c",&quit);
