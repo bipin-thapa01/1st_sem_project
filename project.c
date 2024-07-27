@@ -576,8 +576,8 @@ void change_bus_company(int n)
 					ptr = fopen("bus_company_login.bin","wb");
 					fwrite(all,sizeof(struct bus_company),count,ptr);
 					fclose(ptr);
-					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t     Password changed successfully!"ANSI_COLOR_RESET );
-					printf("\n\n\n\t\t\t\t\t\t     Redirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t          Password changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t          Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -587,7 +587,7 @@ void change_bus_company(int n)
 				}
 				else
 				{
-					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t\t        Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto try_again;
 				}	
 			}
@@ -626,8 +626,8 @@ void change_bus_company(int n)
 				ptr = fopen("bus_company_login.bin","wb");
 				fwrite(all,sizeof(struct bus_company),count,ptr);
 				fclose(ptr);
-				printf("\n\n\n\t\t\t\t\tUsername changed successfully!");
-				printf("\n\n\n\t\t\t\t\t\tRedirecting");
+				printf("\n\n\n\t\t\t\t\t     Username changed successfully!");
+				printf("\n\n\n\t\t\t\t\t\t     Redirecting");
 				for(i=5;i>=1;i--)
 				{
 					printf(".");
@@ -663,8 +663,8 @@ void change_bus_company(int n)
 					ptr = fopen("bus_company_login.bin","wb");
 					fwrite(all,sizeof(struct bus_company),count,ptr);
 					fclose(ptr);
-					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Password changed successfully!"ANSI_COLOR_RESET );
-					printf("\n\n\n\t\t\t\t\t\t   Redirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t\tPassword changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t      Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -674,7 +674,7 @@ void change_bus_company(int n)
 				}
 				else
 				{
-					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t             Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto p_try_again;
 				}	
 			}
@@ -701,8 +701,8 @@ void change_bus_company(int n)
 				ptr = fopen("bus_company_login.bin","wb");
 				fwrite(all,sizeof(struct bus_company),count,ptr);
 				fclose(ptr);
-				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tComapny Name changed successfully!"ANSI_COLOR_RESET );
-				printf("\n\n\n\t\t\t\t\t\tRedirecting");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t     Comapny Name changed successfully!"ANSI_COLOR_RESET );
+				printf("\n\n\n\t\t\t\t\t\t     Redirecting");
 				for(i=5;i>=1;i--)
 				{
 					printf(".");
@@ -743,8 +743,8 @@ void change_bus_company(int n)
 		}
 		else
 		{
-			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    ID deletd successfully!"ANSI_COLOR_RESET );
-			printf("\n\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t         ID deletd successfully!"ANSI_COLOR_RESET );
+			printf("\n\n\t\t\t\t\t\t         Redirecting");
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -858,7 +858,7 @@ void check_report(char username[])
 	ptr_report = fopen("user_report.bin","rb");
 	if(ptr_report == NULL)
 	{
-		printf("\n\n\n\n\t\t\t\t\tError in the server!Please Try again");
+		printf("\n\n\n\n\t\t\t\t\tNo report are available!Please Try again");
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -1048,7 +1048,7 @@ void recruit_driver(char username[])
 	ptr_job = fopen("job_application.bin","ab+");
 	if(ptr_job == NULL)
 	{
-		printf("\n\n\n\n\t\t\t\t\tError in the server!Please Try again");
+		printf("\n\n\n\n\t\t\t\t\tNo driver are registered!Please Try again");
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -1226,7 +1226,7 @@ void driver_login()
 	if(ptr==NULL)
 	{
 		printf("\n\n\n\n\n\t\t\t\t\t\tThere is no driver registered!");
-		printf("\n\n\n\t\t\t\t\t     Redirecting to SigUp page");
+		printf("\n\n\n\t\t\t\t\t            Redirecting to SigUp page");
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -1423,7 +1423,7 @@ void driver_signup()
 		}
 	}
 	fflush(stdin);
-	printf("\n\n\t\t\t\t\t    Total license number: ");
+	printf("\n\n\t\t\t\t\t        License number: ");
 	gets(d.license_number);
 	printf("\n\n\t\t\t\t\t  Total experience years: ");
 	scanf("%d",&d.experience);
@@ -1616,8 +1616,8 @@ void change_driver(int n)
 					ptr = fopen("driver_login.bin","wb");
 					fwrite(all,sizeof(struct driver),count,ptr);
 					fclose(ptr);
-					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tPassword changed successfully!"ANSI_COLOR_RESET );
-					printf("\n\n\n\t\t\t\t\t\tRedirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t     Password changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t     Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -1666,8 +1666,8 @@ void change_driver(int n)
 				ptr = fopen("driver_login.bin","wb");
 				fwrite(all,sizeof(struct driver),count,ptr);
 				fclose(ptr);
-				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tUsername changed successfully!"ANSI_COLOR_RESET );
-				printf("\n\n\n\t\t\t\t\t\tRedirecting");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t     Username changed successfully!"ANSI_COLOR_RESET );
+				printf("\n\n\n\t\t\t\t\t\t     Redirecting");
 				for(i=5;i>=1;i--)
 				{
 					printf(".");
@@ -1703,8 +1703,8 @@ void change_driver(int n)
 					ptr = fopen("driver_login.bin","wb");
 					fwrite(all,sizeof(struct driver),count,ptr);
 					fclose(ptr);
-					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Password changed successfully!"ANSI_COLOR_RESET );
-					printf("\n\n\n\t\t\t\t\t\t   Redirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t         Password changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t        Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -1714,7 +1714,7 @@ void change_driver(int n)
 				}
 				else
 				{
-					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t\t Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto p_try_again;
 				}	
 			}
@@ -1741,8 +1741,8 @@ void change_driver(int n)
 				ptr = fopen("driver_login.bin","wb");
 				fwrite(all,sizeof(struct driver),count,ptr);
 				fclose(ptr);
-				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tReal Name changed successfully!"ANSI_COLOR_RESET );
-				printf("\n\n\n\t\t\t\t\t\tRedirecting");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Real Name changed successfully!"ANSI_COLOR_RESET );
+				printf("\n\n\n\t\t\t\t\t\t   Redirecting");
 				for(i=5;i>=1;i--)
 				{
 					printf(".");
@@ -1783,8 +1783,8 @@ void change_driver(int n)
 		}
 		else
 		{
-			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    ID deletd successfully!"ANSI_COLOR_RESET );
-			printf("\n\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t\t   ID deletd successfully!"ANSI_COLOR_RESET );
+			printf("\n\n\t\t\t\t\t\t          Redirecting");
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -2157,7 +2157,7 @@ void see_driver_info(char username[])
 	{
 		if(strcmp(username,d.username)==0)
 		{
-			printf("\n\n\t\tt\t\t\t      Username : %s",d.username);
+			printf("\n\n\t\t\t\t\t      Username : %s",d.username);
 			printf("\n\n\t\t\t\t\t     Real Name : %s",d.real_name);
 			printf("\n\n\t\t\t\t\t     License Number : %s",d.license_number);
 			if(d.recruit_status == 'n')
@@ -2241,7 +2241,7 @@ void user_login()
 	if(ptr==NULL)
 	{
 		printf(ANSI_COLOR_RED "\n\n\n\n\n\t\t\t\t\t\t  There is no user registered!"ANSI_COLOR_RESET );
-		printf("\n\n\n\t\t\t\t\t     Redirecting to SigUp page");
+		printf("\n\n\n\t\t\t\t\t          Redirecting to SigUp page");
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -2445,8 +2445,15 @@ void user_signup()
 		gets(u.card);
 	}
 	fflush(stdin);
-	printf("\n\n\t\t\t\t\tEnter your cittizenship number: ");
-	gets(u.citizen_no);
+	if(u.age>=18)
+	{
+		printf("\n\n\t\t\t\t\tEnter your cittizenship number: ");
+		gets(u.citizen_no);
+	}
+	else
+	{
+		strcpy(u.citizen_no,"N/A");
+	}
 	unique:
 	fflush(stdin);
 	printf("\n\n\t\t\tEnter unique pin[equal to 5 characters]: ");
@@ -2638,8 +2645,8 @@ void change_user(int n)
 					ptr = fopen("user_login.bin","wb");
 					fwrite(all,sizeof(struct user),count,ptr);
 					fclose(ptr);
-					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tPassword changed successfully!"ANSI_COLOR_RESET );
-					printf("\n\n\n\t\t\t\t\t\tRedirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t     Password changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t     Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -2688,8 +2695,8 @@ void change_user(int n)
 				ptr = fopen("user_login.bin","wb");
 				fwrite(all,sizeof(struct user),count,ptr);
 				fclose(ptr);
-				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tUsername changed successfully!"ANSI_COLOR_RESET );
-				printf("\n\n\n\t\t\t\t\t\tRedirecting");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t       Username changed successfully!"ANSI_COLOR_RESET );
+				printf("\n\n\n\t\t\t\t\t\t       Redirecting");
 				for(i=5;i>=1;i--)
 				{
 					printf(".");
@@ -2725,8 +2732,8 @@ void change_user(int n)
 					ptr = fopen("user_login.bin","wb");
 					fwrite(all,sizeof(struct user),count,ptr);
 					fclose(ptr);
-					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t    Password changed successfully!"ANSI_COLOR_RESET );
-					printf("\n\n\n\t\t\t\t\t\t   Redirecting");
+					printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t         Password changed successfully!"ANSI_COLOR_RESET );
+					printf("\n\n\n\t\t\t\t\t\t        Redirecting");
 					for(i=5;i>=1;i--)
 					{
 						printf(".");
@@ -2736,7 +2743,7 @@ void change_user(int n)
 				}
 				else
 				{
-					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t    Password didnot match! Try again"ANSI_COLOR_RESET );
+					printf(ANSI_COLOR_RED "\n\n\n\t\t\t\t           Password didnot match! Try again"ANSI_COLOR_RESET );
 					goto p_try_again;
 				}	
 			}
@@ -2763,8 +2770,8 @@ void change_user(int n)
 				ptr = fopen("user_login.bin","wb");
 				fwrite(all,sizeof(struct user),count,ptr);
 				fclose(ptr);
-				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\tReal Name changed successfully!"ANSI_COLOR_RESET );
-				printf("\n\n\n\t\t\t\t\t\tRedirecting");
+				printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t       Real Name changed successfully!"ANSI_COLOR_RESET );
+				printf("\n\n\n\t\t\t\t\t\t       Redirecting");
 				for(i=5;i>=1;i--)
 				{
 					printf(".");
@@ -2805,8 +2812,8 @@ void change_user(int n)
 		}
 		else
 		{
-			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t    ID deletd successfully!"ANSI_COLOR_RESET );
-			printf("\n\n\t\t\t\t\t\t    Redirecting");
+			printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t            ID deletd successfully!"ANSI_COLOR_RESET );
+			printf("\n\n\t\t\t\t\t\t         Redirecting");
 			for(i=5;i>=1;i--)
 			{
 				printf(".");
@@ -2886,7 +2893,7 @@ void bus_list(char username[])
 	ptr = fopen("bus_company_login.bin","rb");
 	if(ptr == NULL)
 	{
-		printf("\n\n\n\n\t\t\t\t\tError in the server!Please Try again");
+		printf("\n\n\n\n\t\t\t\t\tNo active bus company!Please Try again");
 		for(i=5;i>=1;i--)
 		{
 			printf(".");
@@ -3160,11 +3167,16 @@ void user_report(char username[])
 		printf("\n\n\t\t\t\t\t    %d %s [%d buses]",count+1,b.name,b.bus_number);
 		count++;
 	}
+	printf("\n\n\t\t\t\t\t    %d <--Back",count+1);
 	printf("\n\n\n\t\t\t\t      Enter number above to report: ");
 	scanf("%d",&bus_no);
+	if(bus_no==count+1)
+	{
+		user_homepage(username);
+	}
 	if(bus_no<1||bus_no>count)
 	{
-		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t Incorrect option! Try Again"ANSI_COLOR_RESET );
+		printf(ANSI_COLOR_RED "\n\n\t\t\t\t\t     Incorrect option! Try Again"ANSI_COLOR_RESET );
 		for(j=3;j>=1;j--)
 		{
 			printf(".");
