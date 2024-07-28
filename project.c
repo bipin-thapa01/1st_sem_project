@@ -16,6 +16,7 @@ void bus_company_login();
 void bus_company_signup();
 void bus_company_homepage(char []);
 void change_bus_company(int);
+void check_employee(char []);
 void bus_company_setting(char []);
 void driver_login();
 void driver_signup();
@@ -435,10 +436,12 @@ void bus_company_homepage(char username[])
 	printf("\n\t     [Press 1]");
 	printf("\t\t\t\t\t  [Press 2]");
 	printf("\t\t\t\t     [Press 3]");
-	printf("\n\n\n\t        4.Log Out");
-	printf("\t\t\t\t\t\t\t\t5.Settings");
-	printf("\n\t         [Press 4]");
-	printf("\t\t\t\t\t\t\t\t  [Press 5]");
+	printf("\n\n\n\t  4.View Employee");
+	printf("\t\t\t\t 5.Log Out");
+	printf("\t\t\t\t   6.Settings");
+	printf("\n\t     [Press 4]");
+	printf("\t\t\t\t         [Press 5]");
+	printf("\t\t\t\t   [Press 6]");
 	printf("\n\n\n\n+----------------------------------------------------------------------------------------------------------------------+");
 	printf("\n\n\n\t\t\t\t\t\t  Enter you choice: ");
 	fflush(stdin);
@@ -455,6 +458,9 @@ void bus_company_homepage(char username[])
 			check_report(username);
 		break;
 		case 4:
+			check_employee(username);
+		break;
+		case 5:
 			system("cls");
 			printf("\n\n\n\n\t\t\t\t\t\t\tLogging Out");
 			for(i=5;i>=1;i--)
@@ -464,7 +470,7 @@ void bus_company_homepage(char username[])
 			}
 			main();
 		break;
-		case 5:
+		case 6:
 			bus_company_setting(username);
 		break;
 		default:
@@ -478,6 +484,42 @@ void bus_company_homepage(char username[])
 			goto retry;
 			
 	}
+}
+
+void check_employee(char username[])
+{
+	FILE *ptr;
+	ptr = fopen("driver_login.bin","r");
+	struct driver d;
+	int i=0;
+	char hold;
+	if(ptr == NULL)
+	{
+		printf("\n\n\n\n\t\t\t\t\tError in the server!Please Try again");
+		for(i=5;i>=1;i--)
+		{
+			printf(".");
+			Sleep(1000);
+		}
+		driver_homepage(username);
+	}
+	system("cls");
+	printf("\n\n\t\t\t\t\t\tList of hired drivers are");
+	printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
+	while(fread(&d,sizeof(struct driver),1,ptr))
+	{
+		if(d.recruit_status=='y')
+		{
+			if(strcmp(d.affiliated_company,username)==0)
+			{
+				printf("\n\n\t\t\t\t\t%d %s",i+1,d.real_name);
+			}
+		}
+	}
+	printf("\n\n\t\t\t\t\t     Enter anything to go back: ");
+	fflush(stdin);
+	scanf("%c",&hold);
+	bus_company_homepage(username);
 }
 
 void change_bus_company(int n)
@@ -930,7 +972,7 @@ void check_report(char username[])
 
 void increase_bus(char username[])
 {
-	int i,change,choice,bus_number,original_bus_number,quit,count=0;;
+	int i,change,choice,bus_number,original_bus_number,quit,count=0,cnt=0;
 	struct bus_company b;
 	FILE *ptr;
 	ptr = fopen("bus_company_login.bin","rb");
@@ -972,6 +1014,11 @@ void increase_bus(char username[])
 		if(bus_number>20||bus_number<1)
 		{
 			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! <20 & >0 buses can be increase at a time"ANSI_COLOR_RESET );
+			for(cnt=0;cnt<3;cnt++)
+			{
+				Sleep(1000);
+				printf(".");
+			}
 			increase_bus(username);
 		}
 		bus_number += original_bus_number;
@@ -984,11 +1031,21 @@ void increase_bus(char username[])
 		if(bus_number>20||bus_number<1)
 		{
 			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! <20 & >0 buses can be desrease at a time"ANSI_COLOR_RESET );
+			for(cnt=0;cnt<3;cnt++)
+			{
+				Sleep(1000);
+				printf(".");
+			}
 			goto retry;
 		}
 		if(original_bus_number - bus_number < 0)
 		{
 			printf(ANSI_COLOR_RED "\n\n\t\t\t\t\tError! Bus number cannot be less than zero!"ANSI_COLOR_RESET );
+			for(cnt=0;cnt<3;cnt++)
+			{
+				Sleep(1000);
+				printf(".");
+			}
 			goto retry;
 		}
 		bus_number = original_bus_number - bus_number;
@@ -1857,8 +1914,8 @@ void driver_setting(char username[])
 
 void job_apply(char username[])
 {
-	int i,k,recruit_choice,count=0,choice,user_choice,count_driver=0;
-	char quit;
+	int i,j1,k,recruit_choice,count=0,choice,user_choice,count_driver=0;
+	char quit,reapply;
 	struct bus_company b;
 	struct driver d,d2;
 	struct job_application j;
@@ -1914,6 +1971,60 @@ void job_apply(char username[])
 				scanf("%d",&recruit_choice);
 				if(recruit_choice == 1)
 				{
+					system("cls");
+					printf("\n\n\n\t\t\t\t\t\t\tDriver\'s Hub");
+					printf("\n\n\t\t\t\t\t\t  Welcome User %s!",username);
+					printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
+					re:
+					printf("\n\n\t\t\t\t\tDo you want to apply for job again?[y/n]: ");
+					fflush(stdin);
+					scanf("%c",&reapply);
+					if(reapply == 'n' || reapply == 'N')
+					{
+						rewind(ptr_driver);
+						while(fread(&d2,sizeof(d2),1,ptr_driver))
+						{
+							count_driver++;
+						}
+						printf("%d",count_driver);
+						if(count_driver == 1)
+						{
+							struct driver d3;
+							rewind(ptr_driver);
+							fread(&d3,sizeof(struct driver),1,ptr_driver);
+							d3.recruit_status = 'n';
+							fclose(ptr_driver);
+							ptr_driver = fopen("driver_login.bin","wb");
+							fwrite(&d3,sizeof(struct driver),1,ptr_driver);
+							fclose(ptr_driver);
+							driver_homepage(username);
+						}
+						struct driver d3[count_driver];
+						rewind(ptr_driver);
+						fread(&d3,sizeof(struct driver),count_driver,ptr_driver);
+						for(i=0;i<count_driver;i++)
+						{
+							if(strcmp(d3[i].username,username)==0)
+							{
+								d3[i].recruit_status ='n';
+							}
+						}
+						fclose(ptr_driver);
+						ptr_driver = fopen("driver_login.bin","wb");
+						fwrite(d3,sizeof(struct driver),count_driver,ptr_driver);
+						fclose(ptr_driver);
+						driver_homepage(username);
+					}
+					else if(!(reapply == 'y' || reapply == 'Y'))
+					{
+						printf(ANSI_COLOR_RED"\n\n\t\t\t\t\t\tInvalid Input! Try again"ANSI_COLOR_RESET);
+						for(j1=0;j1<3;j1++)
+						{
+							printf(".");
+							Sleep(1000);
+						}
+						goto re;
+					}
 					printf("\n\n\t\t\t\t\t\tList of company to apply for job:");
 					while(fread(&b,sizeof(b),1,ptr_company))
 					{
@@ -2933,7 +3044,7 @@ void bus_list(char username[])
 			}
 			printf("\n\n+----------------------------------------------------------------------------------------------------------------------+");
 			printf("\n\n\t\t\t\t\t\t\tOptions:");
-			printf("\n\n\t\t\t\t\t\t  1. Bus Fair Calculate");
+			printf("\n\n\t\t\t\t\t\t  1. Bus Fare Calculate");
 			printf("\n\n\t\t\t\t\t\t     2. <--Back");
 			printf("\n\n\n\t\t\t\t\tEnter your choice: ");
 			fflush(stdin);
