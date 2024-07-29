@@ -491,7 +491,7 @@ void check_employee(char username[])
 	FILE *ptr;
 	ptr = fopen("driver_login.bin","r");
 	struct driver d;
-	int i=0;
+	int i=0,count_employee=0;
 	char hold;
 	if(ptr == NULL)
 	{
@@ -513,8 +513,13 @@ void check_employee(char username[])
 			if(strcmp(d.affiliated_company,username)==0)
 			{
 				printf("\n\n\t\t\t\t\t%d %s",i+1,d.real_name);
+				count_employee++;
 			}
 		}
+	}
+	if(count_employee==0)
+	{
+		printf(ANSI_COLOR_RED"\n\n\t\t\t\t\t       There are no employees!"ANSI_COLOR_RESET);
 	}
 	printf("\n\n\t\t\t\t\t     Enter anything to go back: ");
 	fflush(stdin);
